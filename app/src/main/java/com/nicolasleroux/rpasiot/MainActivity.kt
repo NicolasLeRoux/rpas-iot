@@ -25,4 +25,18 @@ class MainActivity : Activity() {
 
         return ctx.getSystemService(Context.CAMERA_SERVICE) as CameraManager
     }
+
+    /**
+     * Method to get the ID of the camera plugged on the device from the CameraManager.
+     */
+    private fun cameraId(manager: CameraManager): String {
+        val camIds = manager.cameraIdList
+
+        if (camIds.isEmpty()) {
+            throw Exception("No camera were found on this device !")
+        }
+
+        // Only one camera is set on the raspberry, so the first and only one is return.
+        return camIds[0]
+    }
 }
