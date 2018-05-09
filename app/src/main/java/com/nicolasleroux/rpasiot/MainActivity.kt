@@ -39,4 +39,14 @@ class MainActivity : Activity() {
         // Only one camera is set on the raspberry, so the first and only one is return.
         return camIds[0]
     }
+
+    /**
+     * Method to open the camera of the raspberry
+     */
+    private fun openCamera(manager: CameraManager) {
+        val threadWrapper = CameraThreadWrapper()
+        threadWrapper.start()
+
+        manager.openCamera(cameraId(manager), CameraStateCallback(), threadWrapper.handler)
+    }
 }
