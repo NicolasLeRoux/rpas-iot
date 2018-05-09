@@ -2,6 +2,7 @@ package com.nicolasleroux.rpasiot
 
 import android.app.Activity
 import android.content.Context
+import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
 
@@ -47,6 +48,10 @@ class MainActivity : Activity() {
         val threadWrapper = CameraThreadWrapper()
         threadWrapper.start()
 
-        manager.openCamera(cameraId(manager), CameraStateCallback(), threadWrapper.handler)
+        try {
+            manager.openCamera(cameraId(manager), CameraStateCallback(), threadWrapper.handler)
+        } catch (e: CameraAccessException) {
+            throw Exception("Unable to access the camera. $e")
+        }
     }
 }
