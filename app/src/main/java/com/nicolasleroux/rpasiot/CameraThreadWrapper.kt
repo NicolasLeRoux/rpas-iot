@@ -3,7 +3,7 @@ package com.nicolasleroux.rpasiot
 import android.os.Handler
 import android.os.HandlerThread
 
-class CameraThread {
+class CameraThreadWrapper {
 
     var thread: HandlerThread? = null
 
