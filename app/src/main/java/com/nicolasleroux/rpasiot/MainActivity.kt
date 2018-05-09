@@ -49,7 +49,7 @@ class MainActivity : Activity() {
         threadWrapper.start()
 
         try {
-            manager.openCamera(cameraId(manager), CameraStateCallback(), threadWrapper.handler)
+            manager.openCamera(cameraId(manager), CameraStateCallback.instance(), threadWrapper.handler)
         } catch (e: CameraAccessException) {
             throw Exception("Unable to access the camera. $e")
         }
