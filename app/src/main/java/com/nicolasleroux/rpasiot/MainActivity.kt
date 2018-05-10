@@ -51,7 +51,7 @@ class MainActivity : Activity() {
      * Method to open the camera of the raspberry
      */
     private fun openCamera() {
-        val threadWrapper = CameraThreadWrapper()
+        val threadWrapper = CameraThreadWrapper.instance()
         threadWrapper.start()
 
         val manager = cameraManager()
