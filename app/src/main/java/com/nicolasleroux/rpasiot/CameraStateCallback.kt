@@ -40,4 +40,10 @@ class CameraStateCallback : CameraDevice.StateCallback {
     override fun onError(cam: CameraDevice?, error: Int) {
         Log.i(TAG, "An error occurred with the camera !")
     }
+
+    override fun onClosed(camera: CameraDevice?) {
+        Log.i(TAG, "Camera is closed !")
+
+        super.onClosed(camera)
+    }
 }
