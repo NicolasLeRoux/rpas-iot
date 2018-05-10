@@ -2,6 +2,7 @@ package com.nicolasleroux.rpasiot
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
@@ -55,5 +56,15 @@ class MainActivity : Activity() {
         } catch (e: CameraAccessException) {
             throw Exception("Unable to access the camera. $e")
         }
+    }
+
+    /**
+     * Method to check if the camera is plugged to the device
+     * NOTE: Return false even if the camera is plugged on the raspberry :(
+     */
+    private fun isCameraPlugged(): Boolean {
+        val ctx: Context = this.applicationContext
+
+        return ctx.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
     }
 }
