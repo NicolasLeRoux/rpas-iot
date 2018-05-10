@@ -3,17 +3,35 @@ package com.nicolasleroux.rpasiot
 import android.os.Handler
 import android.os.HandlerThread
 
-class CameraThreadWrapper {
+class CameraThreadWrapper private constructor() {
 
     var thread: HandlerThread? = null
 
     var handler: Handler? = null
 
-    fun start() {
-        thread = HandlerThread("CameraThread")
-        thread!!.start()
+    init {
+        start()
+    }
 
-        handler = Handler(thread!!.looper)
+    companion object Factory {
+        private var instance: CameraThreadWrapper? = null
+
+        fun instance(): CameraThreadWrapper {
+            if (instance == null) {
+                instance = CameraThreadWrapper()
+            }
+
+            return instance!!
+        }
+    }
+
+    fun start() {
+        if (thread == null) {
+            thread = HandlerThread("CameraThread")
+            thread!!.start()
+
+            handler = Handler(thread!!.looper)
+        }
     }
 
     fun stop() {
