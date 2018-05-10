@@ -2,12 +2,11 @@ package com.nicolasleroux.rpasiot
 
 import android.hardware.camera2.CameraDevice
 import android.util.Log
+import android.view.Surface
 
 private val TAG = CameraStateCallback::class.java.simpleName
 
 class CameraStateCallback : CameraDevice.StateCallback {
-
-    var camera: CameraDevice? = null
 
     private constructor()
 
@@ -30,7 +29,7 @@ class CameraStateCallback : CameraDevice.StateCallback {
     override fun onOpened(cam: CameraDevice?) {
         Log.i(TAG, "Camera is opened !")
 
-        camera = cam
+        createCaptureSession(cam!!)
     }
 
     override fun onDisconnected(cam: CameraDevice?) {
@@ -45,5 +44,18 @@ class CameraStateCallback : CameraDevice.StateCallback {
         Log.i(TAG, "Camera is closed !")
 
         super.onClosed(camera)
+    }
+
+    private fun createCaptureSession(cam: CameraDevice) {
+        cam.createCaptureSession(surfaces(),
+                CameraCaptureSessionStateCallback(),
+                CameraThreadWrapper.instance().handler)
+    }
+
+    private fun surfaces(): List<Surface> {
+        val list: MutableList<Surface> = ArrayList(1)
+        list.add(CameraImageReader().surface())
+
+        return list
     }
 }
