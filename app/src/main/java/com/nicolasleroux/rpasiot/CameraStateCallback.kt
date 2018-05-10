@@ -1,6 +1,9 @@
 package com.nicolasleroux.rpasiot
 
 import android.hardware.camera2.CameraDevice
+import android.util.Log
+
+private val TAG = CameraStateCallback::class.java.simpleName
 
 class CameraStateCallback : CameraDevice.StateCallback {
 
@@ -25,14 +28,16 @@ class CameraStateCallback : CameraDevice.StateCallback {
     }
 
     override fun onOpened(cam: CameraDevice?) {
+        Log.i(TAG, "Camera is opened !")
+
         camera = cam
     }
 
     override fun onDisconnected(cam: CameraDevice?) {
-        TODO("not implemented")
+        Log.i(TAG, "Camera is disconnected !")
     }
 
     override fun onError(cam: CameraDevice?, error: Int) {
-        TODO("not implemented")
+        Log.i(TAG, "An error occurred with the camera !")
     }
 }
