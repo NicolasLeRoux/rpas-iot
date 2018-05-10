@@ -48,13 +48,13 @@ class CameraStateCallback : CameraDevice.StateCallback {
 
     private fun createCaptureSession(cam: CameraDevice) {
         cam.createCaptureSession(surfaces(),
-                CameraCaptureSessionStateCallback(),
+                CameraCaptureSessionStateCallback(cam),
                 CameraThreadWrapper.instance().handler)
     }
 
     private fun surfaces(): List<Surface> {
         val list: MutableList<Surface> = ArrayList(1)
-        list.add(CameraImageReader().surface())
+        list.add(CameraImageReader.instance().surface())
 
         return list
     }

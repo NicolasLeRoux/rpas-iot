@@ -5,7 +5,7 @@ import android.media.ImageReader
 import android.os.Handler
 import android.view.Surface
 
-class CameraImageReader() {
+class CameraImageReader private constructor() {
     val IMAGE_WIDTH = 320
     val IMAGE_HEIGHT = 240
     val MAX_IMAGES = 3
@@ -16,6 +16,18 @@ class CameraImageReader() {
         val handler = CameraThreadWrapper.instance().handler
 
         imageReader.setOnImageAvailableListener(ImageAvailableCallback(), handler)
+    }
+
+    companion object Factory {
+        private var instance: CameraImageReader? = null
+
+        fun instance(): CameraImageReader {
+            if (instance == null) {
+                instance = CameraImageReader()
+            }
+
+            return instance!!
+        }
     }
 
     fun surface(): Surface {
