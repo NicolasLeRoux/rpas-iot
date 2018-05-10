@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
+import android.util.Log
 
 private val TAG = MainActivity::class.java.simpleName
 
@@ -13,6 +14,10 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.i(TAG, "Main activity created !")
+
+        openCamera()
     }
 
     override fun onDestroy() {
