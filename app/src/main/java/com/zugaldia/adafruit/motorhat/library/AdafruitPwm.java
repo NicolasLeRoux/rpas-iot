@@ -168,6 +168,11 @@ public class AdafruitPwm {
 
         if (debug) {
             Log.d(LOG_TAG, String.format("Wrote to register 0x%02X: 0x%02X", reg, data));
+
+            byte value = readRegByteWrapped(reg);
+            if (value != data) {
+                Log.d(LOG_TAG, String.format(">>> Wrong writing ! Expect 0x%02X and got 0x%02X", data, value));
+            }
         }
     }
 
