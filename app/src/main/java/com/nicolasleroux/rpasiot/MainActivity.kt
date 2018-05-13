@@ -14,6 +14,7 @@ private val TAG = MainActivity::class.java.simpleName
 
 class MainActivity : Activity() {
 
+    var motorHat: AdafruitMotorHat? = null
     var motor1: AdafruitDCMotor? = null
     var motor3: AdafruitDCMotor? = null
 
@@ -22,9 +23,9 @@ class MainActivity : Activity() {
 
         Log.i(TAG, "Main activity created !")
 
-        val motorHat = AdafruitMotorHat()
-        motor1 = motorHat.getMotor(1)
-        motor3 = motorHat.getMotor(3)
+        motorHat = AdafruitMotorHat()
+        motor1 = motorHat!!.getMotor(1)
+        motor3 = motorHat!!.getMotor(3)
 
         motor1!!.run(AdafruitMotorHat.RELEASE)
         motor3!!.run(AdafruitMotorHat.RELEASE)
@@ -41,6 +42,8 @@ class MainActivity : Activity() {
 
         motor1!!.run(AdafruitMotorHat.RELEASE)
         motor3!!.run(AdafruitMotorHat.RELEASE)
+
+        motorHat!!.close()
     }
 
     /**
