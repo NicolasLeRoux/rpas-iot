@@ -21,7 +21,6 @@ public class AdafruitPwm {
 
     private static final String LOG_TAG = AdafruitPwm.class.getSimpleName();
 
-    public static final String I2C_DEVICE_NAME = "I2C1";
     public static final int I2C_ADDRESS = 0x60;
 
     // Registers
@@ -51,12 +50,11 @@ public class AdafruitPwm {
     private boolean debug;
 
     public AdafruitPwm() {
-        this(I2C_DEVICE_NAME, I2C_ADDRESS, true);
+        this(I2C_ADDRESS, true);
     }
 
-    public AdafruitPwm(String deviceName, int address, boolean debug) {
+    public AdafruitPwm(int address, boolean debug) {
         // Attempt to access the I2C device
-        Log.d(LOG_TAG, String.format("Connecting to I2C device %s @ 0x%02X.", deviceName, address));
         PeripheralManager manager = PeripheralManager.getInstance();
 
         List<String> deviceList = manager.getI2cBusList();
@@ -67,6 +65,8 @@ public class AdafruitPwm {
         }
 
         try {
+            String deviceName = deviceList.get(0);
+            Log.d(LOG_TAG, String.format("Connecting to I2C device %s @ 0x%02X.", deviceName, address));
             i2c = manager.openI2cDevice(deviceName, address);
         } catch (IOException e) {
             Log.w(LOG_TAG, "Unable to access I2C device:", e);
