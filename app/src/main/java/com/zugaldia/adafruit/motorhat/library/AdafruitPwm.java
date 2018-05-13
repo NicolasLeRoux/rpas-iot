@@ -6,6 +6,7 @@ import com.google.android.things.pio.I2cDevice;
 import com.google.android.things.pio.PeripheralManager;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * A port of `Adafruit_PWM_Servo_Driver` (Adafruit PCA9685 16-Channel PWM Servo
@@ -54,10 +55,18 @@ public class AdafruitPwm {
     }
 
     public AdafruitPwm(String deviceName, int address, boolean debug) {
+        // Attempt to access the I2C device
+        Log.d(LOG_TAG, String.format("Connecting to I2C device %s @ 0x%02X.", deviceName, address));
+        PeripheralManager manager = PeripheralManager.getInstance();
+
+        List<String> deviceList = manager.getI2cBusList();
+        if (deviceList.isEmpty()) {
+            Log.i(LOG_TAG, "No I2C bus available on this device.");
+        } else {
+            Log.i(LOG_TAG, "List of available devices: " + deviceList);
+        }
+
         try {
-            // Attempt to access the I2C device
-            Log.d(LOG_TAG, String.format("Connecting to I2C device %s @ 0x%02X.", deviceName, address));
-            PeripheralManager manager = PeripheralManager.getInstance();
             i2c = manager.openI2cDevice(deviceName, address);
         } catch (IOException e) {
             Log.w(LOG_TAG, "Unable to access I2C device:", e);
