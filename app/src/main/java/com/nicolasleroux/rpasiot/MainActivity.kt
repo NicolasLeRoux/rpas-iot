@@ -7,6 +7,7 @@ import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.util.Log
+import com.zugaldia.adafruit.motorhat.library.AdafruitMotorHat
 
 private val TAG = MainActivity::class.java.simpleName
 
@@ -17,7 +18,11 @@ class MainActivity : Activity() {
 
         Log.i(TAG, "Main activity created !")
 
-        openCamera()
+        val motorHat = AdafruitMotorHat()
+        val motor1 = motorHat.getMotor(1)
+
+        motor1.setSpeed(10)
+        motor1.run(AdafruitMotorHat.FORWARD)
     }
 
     override fun onDestroy() {
