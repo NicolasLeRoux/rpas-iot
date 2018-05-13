@@ -15,6 +15,7 @@ private val TAG = MainActivity::class.java.simpleName
 class MainActivity : Activity() {
 
     var motor1: AdafruitDCMotor? = null
+    var motor3: AdafruitDCMotor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,15 +24,23 @@ class MainActivity : Activity() {
 
         val motorHat = AdafruitMotorHat()
         motor1 = motorHat.getMotor(1)
+        motor3 = motorHat.getMotor(3)
+
+        motor1!!.run(AdafruitMotorHat.RELEASE)
+        motor3!!.run(AdafruitMotorHat.RELEASE)
 
         motor1!!.setSpeed(150)
         motor1!!.run(AdafruitMotorHat.FORWARD)
+
+        motor3!!.setSpeed(200)
+        motor3!!.run(AdafruitMotorHat.BACKWARD)
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
         motor1!!.run(AdafruitMotorHat.RELEASE)
+        motor3!!.run(AdafruitMotorHat.RELEASE)
     }
 
     /**
