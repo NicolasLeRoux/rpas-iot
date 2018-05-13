@@ -51,7 +51,7 @@ public class AdafruitPwm {
     private boolean debug;
 
     public AdafruitPwm() {
-        this(I2C_DEVICE_NAME, I2C_ADDRESS, false);
+        this(I2C_DEVICE_NAME, I2C_ADDRESS, true);
     }
 
     public AdafruitPwm(String deviceName, int address, boolean debug) {
